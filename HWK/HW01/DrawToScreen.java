@@ -46,7 +46,7 @@ public class DrawToScreen extends JPanel{
                 g.setColor(Color.ORANGE);
 
                 //Rectangle
-                g.drawRect(60*i, 40*j, 40*i, 20*j);
+                g.drawRect(60*j*2, 40*i*2, 40*i, 20*j);
                 
                 //Triangle
                 g.drawLine(60, 40, (60+(40/2)), 40-20);
