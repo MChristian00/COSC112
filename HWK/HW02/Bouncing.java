@@ -9,13 +9,13 @@ public class Bouncing extends JPanel {
     public static final int HEIGHT = 768;
     public static final int FPS = 60;
     public static final int RADIUS = 50;
-    double positionX;
-    double positionY;
+    double positionX, positionX1;
+    double positionY, positionY1;
 
     // Note: The following are not used yet, you should use them in writing your
     // code.
-    double velocityX;
-    double velocityY;
+    double velocityX, velocityX1;
+    double velocityY, velocityY1;
 
     double accelerationX;
     double accelerationY;
@@ -30,6 +30,10 @@ public class Bouncing extends JPanel {
             accelerationY = 98;
             // your code here for adding the second sphere
 
+            positionX1 = 100;
+            positionY1 = HEIGHT - 200;
+            velocityX1 = 70;
+            velocityY1 = -70;
         }
 
         public void run() {
@@ -41,11 +45,20 @@ public class Bouncing extends JPanel {
                 positionX += velocityX / (double) FPS;
                 positionY += velocityY / (double) FPS;
 
+                positionX1 += velocityX1 / (double) FPS;
+                positionY1 += velocityY1 / (double) FPS;
+
                 // Implement bouncing here
-                if (0 >= positionX + RADIUS || WIDTH - positionX <= RADIUS || 0 >= positionY + RADIUS
+                if (0 >= positionX - RADIUS || WIDTH - positionX <= RADIUS || 0 >= positionY + RADIUS
                         || positionY >= HEIGHT) {
                     velocityX = -velocityX;
                     velocityY = -velocityY;
+                }
+
+                if (0 >= positionX1 - RADIUS || WIDTH - positionX1 <= RADIUS || 0 >= positionY1 + RADIUS
+                        || positionY1 >= HEIGHT) {
+                    velocityX1 = -velocityX1;
+                    velocityY1 = -velocityY1;
                 }
 
                 // Implement gravity here (Bonus)
@@ -103,6 +116,6 @@ public class Bouncing extends JPanel {
 
         // your code here for drawing the second sphere
         g.setColor(Color.GREEN);
-        g.drawOval((int) positionX, (int) positionY, RADIUS, RADIUS);
+        g.drawOval((int) positionX1, (int) positionY1, RADIUS, RADIUS);
     }
 }
