@@ -1,3 +1,5 @@
+package HWK.HW03;
+
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -7,58 +9,26 @@ import java.awt.Dimension;
 public class Spinning extends JPanel {
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
-	public static final int FPS = 60;
-	// public static final int RADIUS = 25;
-	// public static final int RADIUS2 = 10;
-	// public static final int RADIUS3 = 50;
-	// public static final double CENTERX = WIDTH / 2.0;
-	// public static final double CENTERY = HEIGHT / 2.0;
-
-	public Color color = Color.white;
-	public Color color2 = Color.green;
-	public Color color3 = Color.orange;
+	public static final int FPS = 100;
 
 	// Right now spheres isn't being used
 	public static Sphere[] spheres;
 
-	// You'll get rid of the following set of variables
-	// Instead, let each Sphere keep track of its own velocity and position
-	// double positionX;
-	// double positionY;
-
-	// double velocityX;
-	// double velocityY;
-
-	// double positionX2;
-	// double positionY2;
-
-	// double velocityX2;
-	// double velocityY2;
-
-	// double positionX3;
-	// double positionY3;
-
-	// double velocityX3;
-	// double velocityY3;
-
 	public Spinning() {
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		// Feel free to set default values as you see fit
-		// positionX = 275;
-		// positionY = HEIGHT - 275;
-		spheres[0] = new Sphere(275, HEIGHT - 275, 25);
-		spheres[1] = new Sphere(500, 500, 10);
-		spheres[2] = new Sphere(300, 300, 50);
 
-		// positionX2 = 500;
-		// positionY2 = 500;
-
-		// positionX3 = 300;
-		// positionY3 = 300;
+		// Initializing spheres position
+		for (int i = 0; i < spheres.length; i++) {
+			if (i == 0) {
+				spheres[i] = new Sphere(200, HEIGHT - 200, 25 * (i + 1), Color.ORANGE);
+			} else {
+				spheres[i] = new Sphere(300 * i, 300 * i, 10 * (i + 1), Color.WHITE);
+			}
+		}
 	}
 
 	public void Go() {
-
+		System.out.println("numberrr of spheeresssssss" + spheres.length);
 		while (true) {
 			for (Sphere s : spheres) {
 				s.update(1.0 / (double) FPS);
@@ -133,41 +103,35 @@ public class Spinning extends JPanel {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		// your code here for drawing the other spheres (you'll replace the following
-		// lines)
+		// Drawing spheres
 		for (Sphere s : spheres) {
-			s.draw(g, Color.orange);
+			s.draw(g);
 		}
-		// g.setColor(color);
-		// g.fillOval((int) positionX, (int) positionY, RADIUS * 2, RADIUS * 2);
-		// g.setColor(color2);
-		// g.fillOval((int) positionX2, (int) positionY2, RADIUS2 * 2, RADIUS2 * 2);
-		// g.setColor(color3);
-		// g.fillOval((int) positionX3, (int) positionY3, RADIUS3 * 2, RADIUS3 * 2);
-
 	}
 }
 
 // You'll implement this class
 class Sphere {
 	// Put fields here:
-	double time;
-	double positionX, positionY;
-	double velocityX, velocityY;
 	final int WIDTH = 1024;
 	final int HEIGHT = 768;
 	final double CENTERX = WIDTH / 2.0;
 	final double CENTERY = HEIGHT / 2.0;
-	double deltaX, deltaY;
 	final int RADIUS;
+	Color color;
+	double time;
+	double positionX, positionY;
+	double velocityX, velocityY;
+	double deltaX, deltaY;
 
-	public Sphere(double positionX, double positionY, int RADIUS) {
+	public Sphere(double positionX, double positionY, int RADIUS, Color color) {
 		// This is the constructor
 		this.positionX = positionX;
 		this.positionY = positionY;
 		this.RADIUS = RADIUS;
-		this.deltaX = positionX - CENTERX;
-		this.deltaY = positionY - CENTERY;
+		// this.deltaX = positionX - CENTERX;
+		// this.deltaY = positionY - CENTERY;
+		this.color = color;
 		// this.velocityX = -deltaY;
 		// this.velocityY = deltaX;
 	}
@@ -182,8 +146,8 @@ class Sphere {
 		this.positionY += this.velocityY * time;
 	}
 
-	public void draw(Graphics g, Color color) {
-		g.setColor(color);
+	public void draw(Graphics g) {
+		g.setColor(this.color);
 		g.fillOval((int) this.positionX, (int) this.positionY, this.RADIUS * 2, this.RADIUS * 2);
 	}
 }
