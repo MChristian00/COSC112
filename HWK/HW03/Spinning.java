@@ -1,5 +1,3 @@
-package HWK.HW03;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
