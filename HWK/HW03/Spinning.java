@@ -9,6 +9,9 @@ public class Spinning extends JPanel {
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
 	public static final int FPS = 100;
+	public static final int FPS = 100;
+
+	// Right now spheres isn't being used
 	public static Sphere[] spheres;
 
 	public Spinning() {
@@ -74,6 +77,7 @@ public class Spinning extends JPanel {
 		// Drawing spheres
 		for (Sphere s : spheres) {
 			s.draw(g);
+			s.draw(g);
 		}
 	}
 }
@@ -106,6 +110,8 @@ class Sphere {
 		this.positionY += this.velocityY * time;
 	}
 
+	public void draw(Graphics g) {
+		g.setColor(this.color);
 	public void draw(Graphics g) {
 		g.setColor(this.color);
 		g.fillOval((int) this.positionX, (int) this.positionY, this.RADIUS * 2, this.RADIUS * 2);
