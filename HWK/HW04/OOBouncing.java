@@ -1,5 +1,4 @@
 package HWK.HW04;
-
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -8,35 +7,31 @@ import java.awt.Dimension;
 import java.util.Random;
 
 class Pair {
-    // HACKED BY Pr0HaX0r
-    // HAHAHAHA
+    protected double x, y;
 
-    double positionX, positionY;
-    double y, x;
-
-    public Pair(double positionX, double positionY) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+    public Pair(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public void times(double time) {
-        // do sth. w/ time
+    public Pair times(double time) {
+        return new Pair(this.x * time, this.y * time);
     }
 
-    public void add(Pair velocity) {
-        // do sth.
+    public Pair add(Pair newPair) {
+        return new Pair(this.x + newPair.x, this.y + newPair.y);
     }
 
     public void flipX() {
-
+        this.x = -this.x;
     }
 
     public void flipY() {
-
+        this.y = -this.y;
     }
 
-    public void divide(double dampening) {
-
+    public Pair divide(double dampening) {
+        return new Pair(this.x * dampening, this.y * dampening);
     }
 
 }
