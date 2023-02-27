@@ -102,7 +102,6 @@ abstract class Shape {
 }
 
 class Sphere extends Shape {
-    @Override
     public void draw(Graphics g) {
         Color c = g.getColor();
 
@@ -113,7 +112,6 @@ class Sphere extends Shape {
 }
 
 class Square extends Shape {
-    @Override
     public void draw(Graphics g) {
         Color c = g.getColor();
 
