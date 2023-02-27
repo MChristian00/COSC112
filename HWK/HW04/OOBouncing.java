@@ -1,4 +1,3 @@
-package HWK.HW04;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Color;
