@@ -182,35 +182,43 @@ public class KeyboardSpheres extends JPanel implements KeyListener {
 
     }
 
-    public void setAccelerationX(Sphere sphere){
+    public void leftPull(Sphere sphere) {
+        sphere.setAcceleration(new Pair(200, 0));
+        sphere.getAcceleration().flipX();
+    }
+
+    public void upPull(Sphere sphere) {
+        sphere.getAcceleration().flipY();
+    }
+
+    public void rightPull(Sphere sphere) {
         sphere.setAcceleration(new Pair(200, 0));
     }
-    
-    public void setAccelerationY(Sphere sphere){
+
+    public void downPull(Sphere sphere) {
         sphere.setAcceleration(new Pair(0, 200));
     }
 
     public void keyPressed(KeyEvent e) {
         char c = e.getKeyChar();
-        System.out.println("You pressed down: " + c);
         for (Sphere sphere : world.spheres) {
-            if (c == 'w') {
-                sphere.setAcceleration(new Pair(0, 200));
-                sphere.getAcceleration().flipY();
+            if (c == 'a') {
+                leftPull(sphere);
             } else if (c == 's') {
-                sphere.getAcceleration().flipY();
-            } else if (c == 'a') {
-                sphere.setAcceleration(new Pair(200, 0));
-                sphere.getAcceleration().flipX();
-            } else if (c == 'd') {
-                sphere.getAcceleration().flipX();
-            }
+                downPull(sphere);
 
+            } else if (c == 'w') {
+                upPull(sphere);
+
+            } else if (c == 'd') {
+                rightPull(sphere);
+            }
         }
     }
 
     public void keyReleased(KeyEvent e) {
         char c = e.getKeyChar();
+
     }
 
     public void keyTyped(KeyEvent e) {
