@@ -182,6 +182,14 @@ public class KeyboardSpheres extends JPanel implements KeyListener {
 
     }
 
+    public void setAccelerationX(Sphere sphere){
+        sphere.setAcceleration(new Pair(200, 0));
+    }
+    
+    public void setAccelerationY(Sphere sphere){
+        sphere.setAcceleration(new Pair(0, 200));
+    }
+
     public void keyPressed(KeyEvent e) {
         char c = e.getKeyChar();
         System.out.println("You pressed down: " + c);
