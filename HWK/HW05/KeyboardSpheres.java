@@ -183,11 +183,16 @@ public class KeyboardSpheres extends JPanel implements KeyListener {
     }
 
     public void leftPull(Sphere sphere) {
+        // Line below allows to transition from up/down pull (where x=0) to a left pull
+        // by setting x-acceleration
         sphere.setAcceleration(new Pair(200, 0));
         sphere.getAcceleration().flipX();
     }
 
     public void upPull(Sphere sphere) {
+        // Line 192 allows to transition from leftPull (where y=0) to an upPull by
+        // setting y-acceleration
+        sphere.setAcceleration(new Pair(0, 200));
         sphere.getAcceleration().flipY();
     }
 
