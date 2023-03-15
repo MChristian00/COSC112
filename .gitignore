@@ -1,5 +1,7 @@
 .vscode
 HWK/HW04/*.class
 HWK/HW05/*.class
+PROJECTS/Project 1/*.class
 Lecture/
 .DS_Store
+.gitignore
