@@ -8,8 +8,6 @@
  **/
 // =============================================================================
 
-
-
 // =============================================================================
 // IMPORTS
 
@@ -17,29 +15,23 @@ import java.util.List;
 import java.util.LinkedList;
 // =============================================================================
 
-
-
 // =============================================================================
 public class CaesarCipher extends Cipher {
-// =============================================================================
-
-
+    // =============================================================================
 
     // =========================================================================
     /**
      * The specialized constructor.
      *
      * @param key The key to used to shift each character for
-     * encryption/decryption.
+     *            encryption/decryption.
      **/
-    public CaesarCipher (long key) {
+    public CaesarCipher(long key) {
 
-	super(key);
+        super(key);
 
     } // CaesarCipher ()
-    // =========================================================================
-
-
+      // =========================================================================
 
     // =========================================================================
     /**
@@ -49,26 +41,24 @@ public class CaesarCipher extends Cipher {
      * @param cleartext The unencrypted source data.
      * @returns The ciphertext -- the encrypted result.
      **/
-    public List<Character> encrypt (List<Character> cleartext) {
+    public List<Character> encrypt(List<Character> cleartext) {
 
-	List<Character> ciphertext = new LinkedList<Character>();
+        List<Character> ciphertext = new LinkedList<Character>();
 
-	// Shift each character of the cleartext, appending the result to the
-	// ciphertext.  Assume an English encoding with 256 possible character
-	// values, wrapping around any shifts beyond a value of 255.
-	for (char clearchar : cleartext) {
+        // Shift each character of the cleartext, appending the result to the
+        // ciphertext. Assume an English encoding with 256 possible character
+        // values, wrapping around any shifts beyond a value of 255.
+        for (char clearchar : cleartext) {
 
-	    char cipherchar = (char)((clearchar + getKey()) % 256);
-	    ciphertext.add(cipherchar);
+            char cipherchar = (char) ((clearchar + getKey()) % 256);
+            ciphertext.add(cipherchar);
 
-	}
+        }
 
-	return ciphertext;
-	
+        return ciphertext;
+
     } // encrypt ()
-    // =========================================================================
-    
-
+      // =========================================================================
 
     // =========================================================================
     /**
@@ -78,27 +68,51 @@ public class CaesarCipher extends Cipher {
      * @param ciphertext The encrypted source data.
      * @returns The cleartext -- the decrypted result.
      **/
-    public List<Character> decrypt (List<Character> ciphertext) {
+    public List<Character> decrypt(List<Character> ciphertext) {
 
-	List<Character> cleartext = new LinkedList<Character>();
+        List<Character> cleartext = new LinkedList<Character>();
 
-	// Shift each character of the cleartext, appending the result to the
-	// ciphertext.  Assume an English encoding with 256 possible character
-	// values, wrapping around any shifts beyond a value of 255.
-	for (char cipherchar : ciphertext) {
+        // Shift each character of the cleartext, appending the result to the
+        // ciphertext. Assume an English encoding with 256 possible character
+        // values, wrapping around any shifts beyond a value of 255.
+        for (char cipherchar : ciphertext) {
 
-	    char clearchar = (char)((cipherchar - getKey()) % 256);
-	    cleartext.add(clearchar);
+            char clearchar = (char) ((cipherchar - getKey()) % 256);
+            cleartext.add(clearchar);
 
-	}
+        }
 
-	return cleartext;
-	
+        return cleartext;
+
     } // decrypt ()
-    // =========================================================================
+      // =========================================================================
 
+    public static void main(String[] args) {
+        // for (int i = 0; i < 256; i++) {
+        // System.out.println((char) i);
+        // }
+        List<Character> clearSample = new LinkedList<>() {
+            {
+                add('H');
+                add('o');
+                add('b');
+                add('e');
+            }
+        };
+        List<Character> encryptSample = new LinkedList<>() {
+            {
+                add('F');
+                add('m');
+                add('`');
+                add('c');
+            }
+        };
+        CaesarCipher c = new CaesarCipher(-2);
+        System.out.println("enc data" + c.encrypt(clearSample));
+        System.out.println("dec data" + c.decrypt(encryptSample));
 
+    }
 
-// =============================================================================    
+    // =============================================================================
 } // class CaesarCipher
-// =============================================================================
+  // =============================================================================

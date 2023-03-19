@@ -3,22 +3,51 @@
 import java.util.*;
 
 public class SubstitutionCipher extends Cipher {
-
+    static int[] ks = new int[];
+    List<Character> charToFreqMap = new ArrayList<>();
+    List<Character> allChars = new ArrayList<>();
     List<Character> randChars = new ArrayList<>();
 
     public SubstitutionCipher(long key) {
         super(key);
         // TODO Auto-generated constructor stub
 
-        Random rand = new Random(key);
-        for (int i = 255; i > 0; i--) {
-            // char aChar = (char) rand.nextInt(i);
-            // if (Character.isLetter(aChar)) {
-            randChars.add((char) rand.nextInt(i));
-            // }
+        for (int i = 0; i < 256; i++) {
+            allChars.add((char) i);
         }
 
-        System.out.print(randChars);
+        Random rand = new Random(key);
+        while (allChars.size() != 0) {
+            char randChar = (char) rand.nextInt(allChars.size());
+            randChars.add(randChar);
+            allChars.remove(randChar);
+
+        }
+    }
+
+    /**
+     * @param listOfChars
+     * @return table of char and their usage frequencies
+     */
+    // public void findRandFreq(List<Character> clearListOfChars, List<Character>
+    // randListOfChars) {
+    public void findRandFreq(List<Character> clearListOfChars) {
+        // int count = 0;
+        for (char aChar : clearListOfChars) {
+            int randCharFreq = Collections.frequency(clearListOfChars, aChar);
+            System.out.printf("%c  appears %d times \n", aChar, randCharFreq);
+        }
+    }
+
+    /**
+     * @param both encrypt and decrypt list of chars
+     * @return mapped freqs
+     */
+    public void findFreqOfChar(List<Character> clearListOfChars) {
+        for (char aChar : clearListOfChars) {
+            int randCharFreq = Collections.frequency(clearListOfChars, aChar);
+            System.out.printf("%c  is mapped to %c - %d times \n", aChar, randCharFreq);
+        }
     }
 
     @Override
@@ -63,21 +92,37 @@ public class SubstitutionCipher extends Cipher {
         List<Character> clearSample = new ArrayList() {
             {
                 add('H');
+                add('o');
+                add('b');
                 add('e');
-                add('l');
-                add('l');
             }
         };
         List<Character> encryptSample = new ArrayList() {
             {
-                add('?');
-                add('k');
-                add('U');
-                add('U');
+                add('K');
+                add('');
+                add('');
+                add('1');
             }
         };
-        SubstitutionCipher s = new SubstitutionCipher(20);
+        SubstitutionCipher s = new SubstitutionCipher(24);
+        SubstitutionCipher c = new SubstitutionCipher(24);
         s.encrypt(clearSample);
         s.decrypt(encryptSample);
+        s.findRandFreq(encryptSample);
+        c.findRandFreq(encryptSample);
     }
 }
+
+/**
+ * Problems: If I don't change the key, and I change the OG Text,
+ * if I use the previous cipher Text, then it will return the previous OG Text
+ * 
+ * Also, some characters are not displayed but using copy-n-paste into my code,
+ * works eventho I can't see anything
+ * 
+ * 
+ * ASK PROF: What are we limited to using? Just simple core java, or we can
+ * import * libraries for instance the Joiner method that turns list of chars to
+ * str. * Imported * from com.google.common.base.Joiner
+ */
