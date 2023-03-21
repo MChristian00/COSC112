@@ -3,7 +3,7 @@
 import java.util.*;
 
 public class SubstitutionCipher extends Cipher {
-    static int[] ks = new int[];
+  
     List<Character> charToFreqMap = new ArrayList<>();
     List<Character> allChars = new ArrayList<>();
     List<Character> randChars = new ArrayList<>();
@@ -21,9 +21,9 @@ public class SubstitutionCipher extends Cipher {
             char randChar = (char) rand.nextInt(allChars.size());
             randChars.add(randChar);
             allChars.remove(randChar);
-
         }
     }
+
 
     /**
      * @param listOfChars
@@ -67,13 +67,13 @@ public class SubstitutionCipher extends Cipher {
             // add it to ciphertext
             ciphertext.add(randChars.get((int) aChar));
         }
-        System.out.print("Cipher Text" + ciphertext);
+        // System.out.print("Cipher Text" + ciphertext);
         return ciphertext;
     }
 
     public List<Character> decrypt(List<Character> encryptedText) {
         List<Character> originaltext = new ArrayList<>();
-
+        // System.out.println(encryptedText);
         for (char aChar : encryptedText) {
             // System.out.print(aChar);
             // get index of aChar
@@ -81,7 +81,7 @@ public class SubstitutionCipher extends Cipher {
             // add it to originaltext
             originaltext.add((char) randChars.indexOf(aChar));
         }
-        System.out.print("OG Text" + originaltext);
+        // System.out.print("OG Text" + originaltext);
         return originaltext;
     }
 
@@ -97,20 +97,12 @@ public class SubstitutionCipher extends Cipher {
                 add('e');
             }
         };
-        List<Character> encryptSample = new ArrayList() {
-            {
-                add('K');
-                add('');
-                add('');
-                add('1');
-            }
-        };
-        SubstitutionCipher s = new SubstitutionCipher(24);
-        SubstitutionCipher c = new SubstitutionCipher(24);
-        s.encrypt(clearSample);
-        s.decrypt(encryptSample);
-        s.findRandFreq(encryptSample);
-        c.findRandFreq(encryptSample);
+        SubstitutionCipher s = new SubstitutionCipher(19);
+        // SubstitutionCipher c = new SubstitutionCipher(19);
+        List<Character> encryptSample = s.encrypt(clearSample);
+        System.out.println(s.decrypt(encryptSample));
+        // s.findRandFreq(encryptSample);
+        // c.findRandFreq(encryptSample);
     }
 }
 
@@ -126,3 +118,10 @@ public class SubstitutionCipher extends Cipher {
  * import * libraries for instance the Joiner method that turns list of chars to
  * str. * Imported * from com.google.common.base.Joiner
  */
+
+
+/**
+* Code to run:
+* java Crypt Substitution encrypt 17 < og.txt > enc.txt 
+* java Crypt Substitution decrypt 17 < enc.txt > og2.txt
+*/
