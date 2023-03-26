@@ -1,8 +1,8 @@
 .vscode
-HWK/HW04/*.class
-HWK/HW05/*.class
-PROJECTS/Project 1/*.txt
-PROJECTS/Project 1/*.class
+HWK/*/*.class
+HWK/*/*.txt
+PROJECTS/*/*.txt
+PROJECTS/*/*.class
 Lecture/
 .DS_Store
 .gitignore
