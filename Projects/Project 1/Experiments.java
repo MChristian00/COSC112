@@ -103,9 +103,9 @@ public class Experiments {
   }
 
   public static void main(String[] args) throws IOException {
-    Experiments.populateArrays(12);
     Experiments.addHeaders();
     for (int i = 1; i <= 50; i++) {
+      Experiments.populateArrays(i); // Problem with this part
       Experiments.findFreqOfCharMapping(i);
     }
     Experiments.writeToFile();
