@@ -217,10 +217,13 @@ public class KeyboardSave extends JPanel implements KeyListener {
 	public void writeToFile(Pair[] points) {
 		try {
 			PrintWriter pw = new PrintWriter(f);
-			String acceleration = points[0].x + " " + points[0].y;
-			pw.write(acceleration);
-			pw.write("\n");
-			for (int i = 1; i < points.length-1; i++) {
+			for (int i = 0; i < points.length-1; i++) {
+				if(i==0){
+					String acceleration = points[0].x + " " + points[0].y;
+					pw.write(acceleration);
+					pw.write("\n");
+					continue;		
+				}
 				pw.write(points[i].x + " " + points[i].y);
 				pw.write("\n");
 			}
@@ -276,7 +279,8 @@ public class KeyboardSave extends JPanel implements KeyListener {
 
 	public void quickLoad() {
 		Pair points[] = readFromFile();
-		Pair prevAcceleration = points[0];
+		Pair prevAcceleration = points[0];		
+
 		for (int i = 1; i < world.spheres.length; i++) {
 			world.spheres[i].setAcceleration(prevAcceleration);
 			world.spheres[i].setPosition(points[i]);
