@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.util.Random;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.util.Scanner;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
@@ -161,12 +165,57 @@ class World {
 	}
 }
 
+class HandleFile {
+	File f = new File("./qs.txt");
+
+	public Pair[] readFromFile() {
+		Pair points[] = new Pair[51];
+		Pair point;
+		int i = 0;
+		try {
+			Scanner sc = new Scanner(f);
+			while (sc.hasNext()) {
+				if (sc.hasNextDouble()) {
+					point = new Pair(sc.nextDouble(), sc.nextDouble());
+					points[i] = point;
+				}
+				i++;
+			}
+			sc.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("File not found.");
+		}
+		return points;
+	}
+
+	public void writeToFile(Pair[] points) {
+		try {
+			PrintWriter pw = new PrintWriter(f);
+			String acceleration = points[0].x + " " + points[0].y;
+			pw.write(acceleration);
+			pw.write("\n");
+			for (int i = 1; i <= points.length; i++) {
+				pw.write(points[i].x + " " + points[i].y);
+				pw.write("\n");
+			}
+
+			pw.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("File not found.");
+			// TODO: handle exception
+		}
+	}
+}
+
 public class KeyboardSave extends JPanel implements KeyListener {
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
 	public static final int FPS = 60;
 	World world;
-	Pair spheresCond[] = new Pair[world.spheres.length];
+	HandleFile hf;
+	Pair spheresCond[] = new Pair[51];
+	File f = new File("./qs.txt");
 
 	class Runner implements Runnable {
 		public void run() {
@@ -214,16 +263,29 @@ public class KeyboardSave extends JPanel implements KeyListener {
 	}
 
 	public void quickSave() {
+		Pair currentAcceleration = world.spheres[0].getAcceleration();
+		System.out.print("current acc" + currentAcceleration.y);
+
+		
 		for (int i = 0; i < world.spheres.length; i++) {
+			if(i==0){
+				System.out.print("line below");
+				spheresCond[0] = new Pair(currentAcceleration.x,
+					currentAcceleration.y);
+					continue;
+			}
 			spheresCond[i] = new Pair(world.spheres[i].getPosition().x,
 					world.spheres[i].getPosition().y);
 		}
-
+		hf.writeToFile(spheresCond);
 	}
 
 	public void quickLoad() {
+		Pair points[] = hf.readFromFile();
+		Pair prevAcceleration = points[0];
 		for (int i = 0; i < world.spheres.length; i++) {
-			world.spheres[i].setPosition(spheresCond[i]);
+			world.spheres[i].setAcceleration(prevAcceleration);
+			world.spheres[i].setPosition(points[i+1]);
 		}
 	}
 
