@@ -18,6 +18,27 @@ public class MyDS extends OrderedCollection{
         Node newN = new Node(toAppend);
         newN.prev = end;
         end = newN;
+
+        // do comparison if int entered is 9 and there's atleast 5 ints before it
+        if(end.n == 9 && length() >= 6)
+            compare();
+    }
+
+    public void compare(){
+        String theString = "3 1 4 1 5 9 ";
+        String compString = "";
+        int counter = 6;
+
+        Node endPointer = end;
+        while(counter >= 1){
+            compString = endPointer.n + " " +compString;
+            endPointer = endPointer.prev;
+            counter--;
+        }
+        
+        if(theString.equals(compString)){
+            System.out.println("Who has pi on their face now, Pr0HaX0r?");
+        }
     }
 
     public int peek(){
@@ -42,7 +63,7 @@ public class MyDS extends OrderedCollection{
         Node intH;
         intH = end;
         while(intH != null){
-            toReturn += intH.n;
+            toReturn = intH.n + " " +toReturn;
             intH = intH.prev;
         }
         return toReturn;
