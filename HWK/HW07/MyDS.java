@@ -1,15 +1,25 @@
 public class MyDS extends OrderedCollection{
     Node end;
+    Node1 end1;
 
     public MyDS(){
         super();
         end = null;
+        end1 = null;
     }
 
     class Node{
         Node prev;
         int n;
         public Node(int n){
+            this.n = n;
+        }
+    }
+
+    class Node1{
+        Node1 prev;
+        int n;
+        public Node1(int n){
             this.n = n;
         }
     }
@@ -24,12 +34,35 @@ public class MyDS extends OrderedCollection{
             compare();
     }
 
+    public void construct(){
+        int i = 6;
+        int j = -4;
+        int k =9;
+        int l;
+        while(i>=0){
+            if(k-4 < k){
+                l = k + j;
+                k = l;
+            } else if(Math.abs(k - 4) > k){
+                j = 3;
+                l =k + j;
+                k = l;
+                j--;
+            }
+            Node1 v = new Node1(l);
+            v.prev = end1;
+            end1 = v;
+            i++;
+            endPointer = end.prev;
+        }
+    }
+
     public void compare(){
         String theString = "3 1 4 1 5 9 ";
         String compString = "";
         int counter = 6;
 
-        Node endPointer = end;
+        Node1 endPointer = end1;
         while(counter >= 1){
             compString = endPointer.n + " " +compString;
             endPointer = endPointer.prev;
