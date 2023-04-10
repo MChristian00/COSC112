@@ -56,13 +56,13 @@ public class LookupBookExample{
   if (runStudentSubmission)
       {
       //Your code here
-      String[] sortedStudentNames = {"A", "B", "C", "D", "Di", "E", "F", "Q", "X", "Z"};
+      String[] sortedStudentNames = {"An", "Ba", "Ca", "De", "Di", "Ex", "Fi", "Qi", "Xo", "Ze"};
       String[] hasSubmitted = {"True", "False", "False", "True", "False", "True", "True", "True", "False", "True"};
       Node<String, String> hasSubmission = new Node<String, String>(sortedStudentNames, hasSubmitted);
-        System.out.println(hasSubmission.find("J"));
-        System.out.println(hasSubmission.find("D"));
-        System.out.println(hasSubmission.find("B"));
-        System.out.println(hasSubmission.find("Z"));
+        System.out.println(hasSubmission.find("Jo"));
+        System.out.println(hasSubmission.find("Di"));
+        System.out.println(hasSubmission.find("Ba"));
+        System.out.println(hasSubmission.find("Ze"));
 
         System.out.println(hasSubmission);
       }
@@ -76,7 +76,7 @@ class Node<K extends Comparable<K>, V>{
   Node<K, V> rightChild;
   K key;
   V value;
-  boolean printTrace = true;
+  boolean printTrace = false;
   public Node(K[] keys, V[] values){
 
   if (printTrace){
