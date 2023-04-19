@@ -3,10 +3,17 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 public class ProblemSolver{
     public static void main(String[] args){
-	DoubleSubtractOneProblem p = new DoubleSubtractOneProblem(257);
+	
+	OtherProblem p = new OtherProblem(135);
 	System.out.println(BFS(p));
 	System.out.println(DFS(p));
-    }
+	}
+	
+	// DoubleSubtractOneProblem p = new DoubleSubtractOneProblem(257);
+	// System.out.println(BFS(p));
+	// System.out.println(DFS(p));
+    // }
+
     public static Node DFS(Problem p){
 	System.out.println("Running Depth First Search");
 	return getSolution(p,  new MyStack());
