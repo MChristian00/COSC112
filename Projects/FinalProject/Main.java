@@ -1,13 +1,15 @@
-// Press ⇧ twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import java.awt.Font;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.util.Random;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+
 // import java.io.InputStream;
 // import java.net.HttpURLConnection;
 // import java.net.URI;
@@ -67,23 +69,25 @@ class Question{
             "What is the only substance that can exist in all three states of matter at room temperature?"
         };
 
-        String[] historyAnswers = {
-            "George Washington",
-            "1939",
-            "Egyptian civilization"
+        String[][] historyAnswers = {
+            {"George Washington", "John Adams", "Thomas Jefferson", "James Madison"},
+            {"1939", "1941", "1943", "1945"},
+            {"Ancient Egyptians", "Mayans", "Aztecs", "Incas"}
         };
-        String[] geographyAnswers = {
-            "Brazil",
-            "Seine",
-            "Vatican City"
+        
+        String[][] geographyAnswers = {
+            {"Brazil", "Argentina", "Colombia", "Peru"},
+            {"Seine", "Thames", "Danube", "Rhine"},
+            {"Vatican City", "Monaco", "Nauru", "Tuvalu"}
         };
-        String[] scienceAnswers = {
-            "Cell",
-            "Nuclear energy",
-            "Water"
+        
+        String[][] scienceAnswers = {
+            {"Cell", "Atom", "Molecule", "Organelle"},
+            {"Nuclear energy", "Thermal energy", "Radiant energy", "Kinetic energy"},
+            {"Water", "Mercury", "Carbon dioxide", "Helium"}
         };
 
-        Node<String> root = new Node<>("Root");
+        root = new Node<>("Root");
         Node<String> his = new Node<>("History");
         Node<String> geo = new Node<>("Geography");
         Node<String> sci = new Node<>("Science");
@@ -93,10 +97,10 @@ class Question{
             Node<String> geoNode= new Node<>(geographyQuestions[j]);
             Node<String> sciNode= new Node<>(scienceQuestions[j]);
 
-            for (int i=0; i<3; i++){
-                Node<String> hisLeaf= new Node<>(historyAnswers[i]);
-                Node<String> geoLeaf= new Node<>(geographyAnswers[i]);
-                Node<String> sciLeaf= new Node<>(scienceAnswers[i]);
+            for (int i=0; i<4; i++){
+                Node<String> hisLeaf= new Node<>(historyAnswers[j][i]);
+                Node<String> geoLeaf= new Node<>(geographyAnswers[j][i]);
+                Node<String> sciLeaf= new Node<>(scienceAnswers[j][i]);
 
                 hisNode.addChild(hisLeaf);
                 geoNode.addChild(geoLeaf);
@@ -110,45 +114,38 @@ class Question{
         root.addChild(his);
         root.addChild(geo);
         root.addChild(sci);
-        
-        System.out.println(root);
-
-        // for(int i=0; i<3; i++){
-        //     for(int j=0; j<3; j++){
-        //         String catTitle = categories.get(i);
-        //         if(i == 0)
-        //             questions[i][j] = historyQuestions[j];
-        //         if(i == 1)
-        //             questions[i][j] = geographyQuestions[j];
-        //         if(i == 2)
-        //             questions[i][j] = scienceQuestions[j];
-        //     }
-        // }
 
     }
 
     public void getCategories(){
-        this.categories.add("History");
-        this.categories.add("Geography");
-        this.categories.add("Science");
+        // this.categories.add("History");
+        // this.categories.add("Geography");
+        // this.categories.add("Science");
         // this.categories.add("Sports");
         // this.categories.add("Technology");
     }
 
-    public String getQuestionByCategory(String category){
-        Random rand = new Random(1);
+    public Node<String> getQuestionByCategory(int categoryInd){
+        Random rand = new Random();
         int randInd = rand.nextInt(3);
-        int catInd = categories.indexOf(category);
-        Node<String> catNode = root.children.get(catInd);
+        Node<String> catNode = root.children.get(categoryInd);
         Node<String> qsNode = catNode.children.get(randInd);
-        System.out.println(qsNode.data);
-        return qsNode.data;
+        return qsNode;
         }
+
+    public String[] getChoices(Node<String> qsNode){
+        String[] choices = new String[4];
+        for(int i = 0; i< 4; i++){
+            choices[i] = qsNode.children.get(i).data;
+        }
+        return choices;
+    }
 
     
 
-    public void checkAnswer(){
-
+    public boolean checkAnswer(int choiceInd){
+        // return the answer to the hint caller method to handle loss or hint
+        return choiceInd == 0;
     }
 
         // public HttpResponse<String> makeRequest(String req){
@@ -187,14 +184,6 @@ class Question{
     }
 
     class World {
-        int height;
-        int width;
-    
-        Ball ball;
-        int numPaddles = 2;
-        Paddle paddles[];
-        Pair paddlePos[] = new Pair[2];
-    
         public World(int initWidth, int initHeight) {
             // 
         }
@@ -205,19 +194,39 @@ public class Main extends JPanel implements KeyListener {
     public static final int WIDTH = 1024;
     public static final int HEIGHT = 768;
     public static final int FPS = 60;
+    World world;
+    JFrame frame;
+    Question q = new Question(null, null);
+    Font font = new Font("Arial", Font.BOLD, 24);
+
+    public void display(JFrame frame, String toDisplay){
+        this.frame = frame;
+        JLabel label = new JLabel(toDisplay);
+        label.setFont(font);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setForeground(Color.WHITE);
+        frame.add(label);
+        System.out.println(toDisplay);
+        frame.repaint();
+    }
 
     public void keyPressed(KeyEvent e) {
         char c = e.getKeyChar();
         System.out.println("You pressed down: " + c);
 
+        int res = 0;
         switch (c) {
             case 'a':
+                res = 0;
                 break;
             case 'b':
+                res = 1;
                 break;
             case 'c':
+                res = 2;
                 break;
             case 'd':
+                res = 3;
                 break;
             case 'q':
                 // this.quickSave();
@@ -225,6 +234,22 @@ public class Main extends JPanel implements KeyListener {
             case 'l':
                 // this.quickLoad();
         }
+
+        // if(res==0){
+            // JLabel label = new JLabel("Well Done!!");
+            q.getCategories();
+            q.getQuestions();
+            Node<String> qsnNode = q.getQuestionByCategory(res);
+            display(frame, qsnNode.data);
+            String[] choices = q.getChoices(qsnNode);
+            for(String choice : choices){
+                display(frame, choice);
+            }
+            // display(frame, "Choose the correct answer");
+            // boolean isCorrect = q.checkAnswer(res);
+            // System.out.println(isCorrect);
+
+        // }
     }
 
     public void keyTyped(KeyEvent e){
@@ -234,8 +259,13 @@ public class Main extends JPanel implements KeyListener {
         char c = e.getKeyChar();
     }
 
+    public void addNotify() {
+        super.addNotify();
+        requestFocus();
+    }
+
     public Main(){
-            // world = new World(WIDTH, HEIGHT);
+            world = new World(WIDTH, HEIGHT);
             addKeyListener(this);
             this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
             // Thread mainThread = new Thread(new Runner());
@@ -243,16 +273,13 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Pong!!!");
+        JFrame frame = new JFrame("Game!!!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Pong mainInstance = new Pong();
+        Main mainInstance = new Main();
         frame.setContentPane(mainInstance);
+        mainInstance.display(frame, "<html>Choose a category<br/> A. History<br/> B. Geography<br/> C. Science<html><br/>");
         frame.pack();
         frame.setVisible(true);
-
-        Question q = new Question(null, null);
-        q.getCategories();
-        q.getQuestions();
 
     }
         public void paintComponent(Graphics g) {
