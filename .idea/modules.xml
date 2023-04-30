@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/COSC112.iml" filepath="$PROJECT_DIR$/COSC112.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HWK/HWK.iml" filepath="$PROJECT_DIR$/HWK/HWK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Projects/Projects.iml" filepath="$PROJECT_DIR$/Projects/Projects.iml" />
+    </modules>
+  </component>
+</project>
