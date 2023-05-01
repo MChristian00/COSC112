@@ -42,9 +42,9 @@ public class Skyline extends JPanel {
 
         // Horizon
         randH = rand.nextInt(95, 105);
-        for (int i = 1; i <= 1000000; i++) {
+        for (int i = 1; i <= 1000; i++) {
             g.drawLine(i, HEIGHT, i, HEIGHT - randH);
-            randH = randH + rand.nextInt(-5, 5);
+            randH += rand.nextInt(11) - 5;
         }
 
         // Stars
