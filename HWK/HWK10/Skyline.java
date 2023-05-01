@@ -42,7 +42,7 @@ public class Skyline extends JPanel {
 
         // Horizon
         randH = rand.nextInt(95, 105);
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= WIDTH; i++) {
             g.drawLine(i, HEIGHT, i, HEIGHT - randH);
             randH += rand.nextInt(11) - 5;
         }
@@ -53,11 +53,11 @@ public class Skyline extends JPanel {
         }
 
         // Cluster
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.WHITE);
         int x = 500;
         int y = 500;
         for (int i = 1; i <= 100; i++) {
-            g.fillOval((int) (10 * rand.nextGaussian() + x), +(int) (10 * rand.nextGaussian() + y), 2, 2);
+            g.fillOval((int) (20 * rand.nextGaussian() + x), +(int) (20 * rand.nextGaussian() + y), 2, 2);
         }
     }
 }
