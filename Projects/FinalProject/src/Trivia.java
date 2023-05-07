@@ -237,7 +237,8 @@ public class Trivia extends JPanel implements KeyListener {
         }
         // validate();
         frame.getContentPane().removeAll();
-        // catsDisplayed = true;
+//         catsDisplayed = true;
+
     }
 
     public void displayQuestion(Graphics g) {
@@ -270,7 +271,10 @@ public class Trivia extends JPanel implements KeyListener {
         } else if (resAns == 'b' || resAns == 'c' || resAns == 'd') {
             display(g, "Wrong answer!!", 500, 500);
             // redirect to Game Frame with triviaWon == false;
-            return;
+            this.getTopLevelAncestor().setVisible(true);
+//            j.setVisible(true);
+//            j.setEnabled(true);
+//            frame.dispose();
         }
         ansDisplayed = true;
     }
@@ -323,11 +327,16 @@ public class Trivia extends JPanel implements KeyListener {
 
     public Trivia() {
         addKeyListener(this);
-        // frame = new JFrame("Game!!!");
+         frame = new JFrame("Game!!!");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+
         setBackground(Color.darkGray);
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(this);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+////        Trivia mainInstance = new Trivia();
+////        frame.setContentPane(mainInstance);
+        frame.pack();
+        frame.setVisible(true);
         // BufferedImage image = new BufferedImage(500, 500,
         // BufferedImage.TYPE_INT_ARGB);
         // g2 = (Graphics2D) image.createGraphics();
@@ -355,14 +364,14 @@ public class Trivia extends JPanel implements KeyListener {
     // }
     // }
 
-    public static void main(String[] args) {
-        frame = new JFrame("Game!!!");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Trivia mainInstance = new Trivia();
-        frame.setContentPane(mainInstance);
-        frame.pack();
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        frame = new JFrame("Game!!!");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Trivia mainInstance = new Trivia();
+//        frame.setContentPane(mainInstance);
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
 
     public void getImage() {
         try {
@@ -395,21 +404,20 @@ public class Trivia extends JPanel implements KeyListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // System.out.println("in here");
         if (catsDisplayed == false) {
             displayCats(g);
-            // catsDisplayed = true;
-            // qsnDisplayed = false;
+             catsDisplayed = true;
+             qsnDisplayed = true;
         }
-        if (qsnDisplayed == false) {
+        if (qsnDisplayed) {
             displayQuestion(g);
-            displayChoices(g);
-            // qsnDisplayed = true;
-            // ansDisplayed = false;
+             qsnDisplayed = true;
+             chDisplayed = true;
         }
-        // if (chDisplayed == false) {
-
-        // }
+         if (chDisplayed) {
+        displayChoices(g);
+        chDisplayed = false;
+         }
         // if (ansDisplayed == false) {
         displayResult(g);
         // ansDisplayed = true;
